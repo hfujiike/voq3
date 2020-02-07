@@ -39,7 +39,6 @@ namespace voqui3
         // その他変数  param -------------------------------
         static int i_nendo = 0;
         static string s_nendonew = "";
-        static string s_lkey = "";
         static int i_endjno = 0;
         static string s_hyoud1 = "";
         static string s_hyoud2 = "";
@@ -155,11 +154,6 @@ namespace voqui3
                             s_nendonew = s_item1;
                             s_log += "\r\n f01 12 NENDONEW " + s_item1;
                         }
-                        else if (s_item0 == "LKEY")
-                        {
-                            s_lkey = s_item1;
-                            s_log += "\r\n f01 13 LKEY " + s_item1;
-                        }
                         else if (s_item0 == "HYUD1")
                         {
                             s_hyoud1 = s_item1;
@@ -208,11 +202,6 @@ namespace voqui3
                     if (i_nendo > 2000)
                     {
                         s_rec = "NENDO=" + i_nendo.ToString();
-                        SwParam.WriteLine(s_rec);
-                    }
-                    if (s_lkey != "")
-                    {
-                        s_rec = "LKEY=" + s_lkey;
                         SwParam.WriteLine(s_rec);
                     }
                     if (i_endjno > 1000)
@@ -775,19 +764,6 @@ namespace voqui3
                 TbJExp.Text = "";
 
                 i_endjno = i_nextjno;
-
-                // ライセンスキー取得依頼
-                //                        // キー= "voq" + 前4文字(shimoren * version )
-                //                        // キー= "voq" + 前4文字(3189 * 317 )
-                //                        // キー= "voq" + 前4文字(1010913 )
-                //                        // キー= "voq1010"
-                if (s_lkey != "voq1010" && i_nextjno > 1600)
-                {
-                    string s_irai  = "ライセンスキーの取得をお願いします。\r\n";
-                    s_irai += "仕訳データが600件を超えました。\r\n";
-                    s_irai += "（継続しご利用可能ですがこのお願いが表示されます）\r\n";
-                    BoxMes(s_irai);
-                }
 
                 // データグリッドのリフレッシュ　追加に対応して
                 LV_shiwake.Items.Refresh();

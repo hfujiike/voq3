@@ -39,7 +39,6 @@ namespace voqui3
 
         static int i_nendo = 0;
         static string s_nendonew = "N";
-        static string s_lkey = "";
         static int i_endjno = 1000;
         static string s_hyoud1 = "";
         static string s_hyoud2 = "";
@@ -112,12 +111,6 @@ namespace voqui3
                             s_log += "\r\n f01 11 NENDO " + s_item1;
                             TbNendo.Text = s_item1;
                         }
-                        else if (s_item0 == "LKEY")
-                        {
-                            s_lkey = s_item1;
-                            s_log += "\r\n f01 12 LKEY " + s_item1;
-                            TbLKey.Text = s_item1;
-                        }
                         else if (s_item0 == "HYUD1")
                         {
                             s_hyoud1 = s_item1;
@@ -167,10 +160,6 @@ namespace voqui3
                     return false;
                 }
 
-                s_job = "f02 02 ライセンスキー ";
-                // ライセンスキーはチェックせず格納
-                s_lkey = TbLKey.Text;
-
                 s_job = "f02 03 表題 ";
                 // 表題格納
                 s_hyoud1 = tbHyou1.Text;
@@ -192,12 +181,6 @@ namespace voqui3
                         s_rec = "NENDONEW=" + s_nendonew;
                         SwParam.WriteLine(s_rec);
                         BoxCheck("年頭での初期化の設定もしています。よろしいですか？");
-                    }
-                    // ライセンスキー格納
-                    if (s_lkey != "")
-                    {
-                        s_rec = "LKEY=" + s_lkey;
-                        SwParam.WriteLine(s_rec);
                     }
 
                     // 表題格納
