@@ -1,0 +1,9 @@
+----- 2020/01/31 16:05:10 -------
+ f01 01 s get_param_file1
+ f01 11 NENDO 2020True
+ f01 14 HYUD1 FGK-SYSTEMS 2020
+ f01 15 HYUD2 (2020/1/1-2020/12/31)
+ f01 16 ENDJNO 1007True
+ f03 01 s get_param2_file
+ f11 01 s get_JounalData
+ f11 12 JounalData bind

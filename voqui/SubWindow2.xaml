@@ -1,0 +1,14 @@
+﻿<Window x:Class="voqui3.SubWindow2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:voqui3"
+        mc:Ignorable="d"
+        Title="Voqui ExcelOut" Height="117" Width="518" Loaded="loadSubW2" ContentRendered="voqui_CRendered">
+    <Grid Margin="10,0,2,5">
+        <TextBlock x:Name="tbox_jstaus" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Binding jstatus" Width="441" Margin="26,41,0,10"/>
+        <Label Content="出力中　エクセルファイル（仕訳帳、総勘定元帳、試算表，決算書）" HorizontalAlignment="Left" Height="40" Margin="26,10,0,0" VerticalAlignment="Top" Width="408"/>
+
+    </Grid>
+</Window>

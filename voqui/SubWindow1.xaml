@@ -1,0 +1,30 @@
+﻿<Window x:Class="voqui3.SubWindow1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:voqui3"
+        mc:Ignorable="d"
+        Title="voqui settei" Height="294.152" Width="444.279" Loaded="Window_Loaded" Closed="Window_Closed" ResizeMode="NoResize">
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Margin="0,0,-6,0">
+
+        <TextBox x:Name="TbLKey" HorizontalAlignment="Left" Height="20" Margin="133,187,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="195"/>
+        <TextBox x:Name="TbNendo" HorizontalAlignment="Left" Height="20" Margin="133,81,0,0" TextWrapping="Wrap" Text="2019" VerticalAlignment="Top" Width="84"/>
+        <TextBox x:Name="TbKekka" HorizontalAlignment="Left" Height="20" Margin="29,212,0,0" TextWrapping="Wrap" Text="TbKekka" VerticalAlignment="Top" Width="391" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" Padding="2,0" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="TbVersion" HorizontalAlignment="Left" Height="20" Margin="132,42,0,0" TextWrapping="Wrap" Text="TbVersion" VerticalAlignment="Top" Width="169" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" Padding="2,0" HorizontalContentAlignment="Right" FlowDirection="RightToLeft"/>
+
+        <Label Content="ライセンスキー" HorizontalAlignment="Right" Height="20" Margin="0,187,316,0" VerticalAlignment="Top" Width="95" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="年度" HorizontalAlignment="Right" Height="20" Margin="0,80,317,0" VerticalAlignment="Top" Width="100" FontSize="11" RenderTransformOrigin="0.485,2.042" FlowDirection="RightToLeft" Padding="2" />
+        <Label Content="設定処理" HorizontalAlignment="Right" Height="20" Margin="0,10,197,0" VerticalAlignment="Top" Width="114" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="Version" HorizontalAlignment="Right" Height="20" Margin="0,42,317,0" VerticalAlignment="Top" Width="86" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
+
+        <CheckBox x:Name="CBoxNew" Content="年頭データ初期化" HorizontalAlignment="Left" Height="20" Margin="232,82,0,0" VerticalAlignment="Top" Width="152" Checked="CBoxNew_Checked" Unchecked="CBoxNew_Unchecked"/>
+
+        <Button x:Name="ButtonSet" Content="設定登録" HorizontalAlignment="Left" Height="20" Margin="325,235,0,0" VerticalAlignment="Top" Width="95" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonSet_Click" RenderTransformOrigin="0.232,0.65" />
+        <Button x:Name="ButtonBack" Content="戻る" HorizontalAlignment="Left" Height="20" Margin="19,235,0,0" VerticalAlignment="Top" Width="95" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" RenderTransformOrigin="0.232,0.65" Click="ButtonBack_Click" />
+        <Label Content="表題" HorizontalAlignment="Right" Height="20" Margin="0,105,317,0" VerticalAlignment="Top" Width="100" FontSize="11" RenderTransformOrigin="0.485,2.042" FlowDirection="RightToLeft" Padding="2" />
+        <TextBox x:Name="tbHyou1" HorizontalAlignment="Left" Height="19" Margin="133,106,0,0" TextWrapping="Wrap" Text="表題１　年度と屋号" VerticalAlignment="Top" Width="287"/>
+        <TextBox x:Name="tbHyou2" HorizontalAlignment="Left" Height="19" Margin="133,130,0,0" TextWrapping="Wrap" Text="表題２　からまで等の期間" VerticalAlignment="Top" Width="287"/>
+
+    </Grid>
+</Window>

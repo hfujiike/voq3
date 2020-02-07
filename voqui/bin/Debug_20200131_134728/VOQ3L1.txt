@@ -1,0 +1,10 @@
+----- 2020/01/31 13:45:35 -------
+ f01 01 s get_param_file1
+ f01 11 NENDO 2018True
+ f01 13 LKEY voq5765712
+ f01 16 ENDJNO 1316True
+ f01 14 HYUD1 FGK-SYSTEMS 2018 AA
+ f01 15 HYUD2 (2018/1/1-2018/12/31)  test478
+ f03 01 s get_param2_file
+ f11 01 s get_JounalData
+ f11 12 JounalData bind
