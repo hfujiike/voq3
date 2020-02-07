@@ -1,4 +1,4 @@
------ 2020/02/07 13:40:04 -------
+----- 2020/02/07 15:10:53 -------
  f01 01 s get_param_file1
  f01 11 NENDO 2020True
  f01 16 ENDJNO 1009True
@@ -7,5 +7,13 @@
  f03 01 s get_param2_file
  f11 01 s get_JounalData
  f11 12 JounalData bind
+ f13 01 s put_JounalData
+ f31 01 Ledger Create 
+ f31 01 Ledger SORT start 
+ f31 01 Ledger SORT end 
+ f32 01 Motochou shuukei start 
+ f32 81 Shisanhyou end 
+ f34 01 s put_LedgerData
+ f35 01 s put_shisan Data
  f02 01 s put_param1_file 
  f13 01 s put_JounalData
