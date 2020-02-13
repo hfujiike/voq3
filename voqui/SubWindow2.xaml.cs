@@ -23,21 +23,18 @@ namespace voqui3
     /// </summary>
     public partial class SubWindow2 : Window
     {
-        Encoding EncJIS = Encoding.GetEncoding("Shift-JIS");
+        public Encoding EncJIS = Encoding.GetEncoding("Shift-JIS");
 
         // 実行dirの読込
-        static string s_EPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        static string s_EDir = System.IO.Path.GetDirectoryName(s_EPath);
+        static readonly string s_EPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        static readonly string s_EDir = System.IO.Path.GetDirectoryName(s_EPath);
 
-        static string s_pfile_param1 = s_EDir + "\\VOQ3P1.txt";   // 設定ファイル(年度,ライセンスキー,最終連番)
-        static string s_pfile_op2log = s_EDir + "\\VOQ3L1.txt";   // ログファイル
-        static string s_pfile_mainpg = s_EDir + "\\VOQ3AA.exe";   // メインプログラム
-        static string s_pfile_templa = s_EDir + "\\VOQ3T1.xlsx";  // エクセルテンプレート
-        static string s_pfile_exdata = s_EDir + "\\VOQ3D0.xlsx";  // エクセル簿記データ        
+        public string s_pfile_param1 = s_EDir + "\\VOQ3P1.txt";   // 設定ファイル(年度,ライセンスキー,最終連番)
+        public string s_pfile_op2log = s_EDir + "\\VOQ3L1.txt";   // ログファイル
+        public string s_pfile_mainpg = s_EDir + "\\VOQ3AA.exe";   // メインプログラム
+        public string s_pfile_templa = s_EDir + "\\VOQ3T1.xlsx";  // エクセルテンプレート
+        public string s_pfile_exdata = s_EDir + "\\VOQ3D0.xlsx";  // エクセル簿記データ        
 
-        // ファイル取得用
-        FileStream fst = null;
-        FileStream fsd = null;
 
         // ブック格納用
        IWorkbook book_exdata = null;  // エクセルック簿記データ 
@@ -67,20 +64,16 @@ namespace voqui3
         List<Kessanrecord> list_shuueki  = new List<Kessanrecord>();
         List<Kessanrecord> list_hiyou  = new List<Kessanrecord>();
 
-        #region // const' SubWindow2 //
+        // SubWindow2 
         public SubWindow2()
         {
             InitializeComponent();
-            
         }
-        #endregion
 
-        #region エクセルデータ作成スタート処理
-        public bool f201_start()
+        //  エクセルの簿記用のテンプレートから結果格納用ブックを作成
+        public bool F201_start()
         {
-            //  エクセルの簿記用のテンプレートから結果格納用ブックを作成
-
-            using (fst = File.OpenRead(s_pfile_templa))
+            using (FileStream fst = File.OpenRead(s_pfile_templa))
             {
                 tbox_jstaus.Text = "テンプレート用Excelファイルの接続";
                 Task.Delay(300);
@@ -132,11 +125,9 @@ namespace voqui3
 
             return true;
         }
-        #endregion
 
-
-        #region 仕分けの作成 f231
-        public bool f231_shiwake()
+        // 仕分けの作成
+        public bool F231_shiwake()
         {
             tbox_jstaus.Text = "仕訳処理 開始";
             Task.Delay(300);
@@ -191,10 +182,9 @@ namespace voqui3
 
             return true;
         }
-        #endregion
 
-        #region 勘定元帳コピー f232
-        public bool f232_kanjou()
+        // 勘定元帳コピー
+        public bool F232_kanjou()
         {
             // 勘定元帳コピー
             tbox_jstaus.Text = "勘定元帳コピー 開始";
@@ -290,11 +280,9 @@ namespace voqui3
             }
             return true;
         }
-        #endregion
 
-
-        #region 試算表の作成 f233
-        public bool f233_shisanhyou()
+        // 試算表の作成
+        public bool F233_shisanhyou()
         {
             tbox_jstaus.Text = "試算表の作成 開始";
             Task.Delay(300);
@@ -458,9 +446,9 @@ namespace voqui3
                 L_rieki = L_uriage - L_keihi;   // 利益
                 L_junshi = L_shihon + L_rieki;  // 純資     
 
-                //t BoxMes("f233 L_rieki=" + L_rieki.ToString() + "\r\nL_junshi=" + L_junshi.ToString());      //t ------
+                //t BoxMes("F233 L_rieki=" + L_rieki.ToString() + "\r\nL_junshi=" + L_junshi.ToString());      //t ------
                 //t long L_ww = -999;  //t --------------
-                //t BoxMes("f233 L_ww=" + L_ww.ToString());      //t -----
+                //t BoxMes("F233 L_ww=" + L_ww.ToString());      //t -----
 
 
                 Kessanrecord rec_efusai = new Kessanrecord();
@@ -514,11 +502,9 @@ namespace voqui3
 
             return true;
         }
-        #endregion
 
-
-        #region 貸借対象表と損益計算書の作成 f234
-        public bool f234_kessan()
+        // 貸借対象表と損益計算書の作成
+        public bool F234_kessan()
         {
             // 貸借対象表と損益計算書の作成
             tbox_jstaus.Text = "貸借対象表と損益計算書の作成 開始";
@@ -747,9 +733,7 @@ namespace voqui3
 
             return true;
         }
-        #endregion
 
-        #region サブルーティン
         // メッセージ
         private void BoxMes(string m1)
 
@@ -760,13 +744,10 @@ namespace voqui3
                 MessageBoxButton.OK,
                 MessageBoxImage.Exclamation);
         }
-        #endregion
 
-
-        #region エクセルブックをセーブ f291
-        public bool f291_end()
+        //  簿記用のエクセルブックをセーブ
+        public bool F291_end()
         {
-            //  簿記用のエクセルブックをセーブ
             try
             {
                 if (File.Exists(s_pfile_exdata))
@@ -788,25 +769,23 @@ namespace voqui3
                 return false;
             }
         }
-        #endregion
 
-        #region イベント
         // イベント
-        private void loadSubW2(object sender, RoutedEventArgs e)
+        private void LoadSubW2(object sender, RoutedEventArgs e)
         {
         }
-        #endregion
 
-        private void voqui_CRendered(object sender, EventArgs e)
+        // CRendered
+        private void Voqui_CRendered(object sender, EventArgs e)
         {
             bool ans = false;
 
-            ans = f201_start();
-            ans = f231_shiwake();
-            ans = f232_kanjou();
-            ans = f233_shisanhyou();
-            ans = f234_kessan();
-            ans = f291_end();
+            ans = F201_start();
+            ans = F231_shiwake();
+            ans = F232_kanjou();
+            ans = F233_shisanhyou();
+            ans = F234_kessan();
+            ans = F291_end();
 
             this.Close();
         }

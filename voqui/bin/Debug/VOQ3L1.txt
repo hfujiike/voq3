@@ -1,19 +1,16 @@
------ 2020/02/07 15:10:53 -------
+----- 2020/02/12 15:57:07 -------
  f01 01 s get_param_file1
  f01 11 NENDO 2020True
- f01 16 ENDJNO 1009True
+ f01 16 ENDJNO 1018True
  f01 14 HYUD1 FGK-SYSTEMS 2020
  f01 15 HYUD2 (2020/1/1-2020/12/31) aa
- f03 01 s get_param2_file
+ f03 01 s get_param2_file年頭:棚卸処理年頭:資産設定年頭:負債設定通常:経費の支払（現金等）通常:経費の支払（買掛等）通常:固定資産の購入（現金等）通常:固定資産の購入（買掛等）通常:返済通常:現金化.売掛資産証券等通常:借入通常:事業主取分年末:原価償却年末:棚卸処理現金　　当座預金普通預金定期預金受取手形売掛金　前払金　貸付金　仮払源泉税建物　　建物付属設備機械装置車両運搬具工具器具備品土地　　償却資産有価証券事業主貸棚卸資産支払手形買掛金　未払金　借入金　前受金　預り金　元入金事業主借売上(報酬）売上(製品）雑収入　受取利息仕入　　外注工賃荷造運賃広告宣伝費接待交際費旅費交通費租税公課利子と割引料地代家賃損害保険料水道光熱費通信費　給料賃金福利厚生費消耗品費修繕費　雑費　　雑損失　　減価償却費期首棚卸高期末棚卸高
+f04 01 s sagyou_handan
  f11 01 s get_JounalData
  f11 12 JounalData bind
- f13 01 s put_JounalData
- f31 01 Ledger Create 
- f31 01 Ledger SORT start 
- f31 01 Ledger SORT end 
- f32 01 Motochou shuukei start 
- f32 81 Shisanhyou end 
- f34 01 s put_LedgerData
- f35 01 s put_shisan Data
- f02 01 s put_param1_file 
- f13 01 s put_JounalData
+ ..
+F05 01 s sagyou_handan 
+F05 02 s karikata combo
+F05 03 s kashikata combo
+ f21 01 sdata_add 
+ f21 14.1 s_work amount=900

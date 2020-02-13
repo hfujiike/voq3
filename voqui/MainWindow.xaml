@@ -29,8 +29,8 @@
         <TextBox x:Name="TbMes" HorizontalAlignment="Right" Height="21" Margin="0,552,19,0" TextWrapping="Wrap" Text="仕訳作業を始めてください。" VerticalAlignment="Top" Width="988" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" Padding="2,0" HorizontalContentAlignment="Right"/>
         <TextBox x:Name="TbOpeDate" HorizontalAlignment="Left" Height="21" Margin="10,12,0,0" TextWrapping="Wrap" Text="Ope Date" VerticalAlignment="Top" Width="162" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
 
-        <Rectangle HorizontalAlignment="Left" Height="140" Margin="679,407,0,0" Stroke="Black" VerticalAlignment="Top" Width="319" Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
-        <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" HorizontalAlignment="Left" Height="352" Margin="679,56,0,0" Stroke="Black" VerticalAlignment="Top" Width="319"/>
+        <Rectangle HorizontalAlignment="Left" Height="140" Margin="687,407,0,0" Stroke="Black" VerticalAlignment="Top" Width="311" Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
+        <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" HorizontalAlignment="Left" Height="347" Margin="687,55,0,0" Stroke="Black" VerticalAlignment="Top" Width="311"/>
 
         <DataGrid x:Name="LV_shiwake" IsReadOnly="False"
 		    HorizontalAlignment="Left" Height="492" Margin="10,55,0,0" VerticalAlignment="Top" Width="669" AutoGenerateColumns="False">
@@ -51,47 +51,24 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="仕訳データの追加" HorizontalAlignment="Left" Height="20" Margin="687,66,0,0" VerticalAlignment="Top" Width="153"  FontSize="11" Padding="2"/>
+        <Label Content="仕訳データの追加" HorizontalAlignment="Left" Height="20" Margin="695,68,0,0" VerticalAlignment="Top" Width="95"  FontSize="11" Padding="2"/>
 
-        <Label Content="借方" HorizontalAlignment="Right" Height="24" Margin="0,204,260,0" VerticalAlignment="Top" Width="67" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
-        <Label Content="作業選択" HorizontalAlignment="Right" Height="24" Margin="0,148,260,0" VerticalAlignment="Top" Width="56" FontSize="11" RenderTransformOrigin="0.485,2.042" BorderThickness="1,0,1,1" FlowDirection="RightToLeft" Padding="2" />
+        <Label Content="借方" HorizontalAlignment="Right" Height="24" Margin="0,188,267.4,0" VerticalAlignment="Top" Width="56" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="作業選択" HorizontalAlignment="Right" Height="24" Margin="0,106,268.4,0" VerticalAlignment="Top" Width="56" FontSize="11" RenderTransformOrigin="0.485,2.042" BorderThickness="1,0,1,1" FlowDirection="RightToLeft" Padding="2" />
         <Label Content="仕訳入力画面" HorizontalAlignment="Right" Height="24" Margin="0,8,555,0" VerticalAlignment="Top" Width="103" RenderTransformOrigin="0.485,2.042" FontWeight="Bold" />
-        <Label Content="対象日" HorizontalAlignment="Right" Height="20" Margin="0,92,260,0" VerticalAlignment="Top" Width="46" FontSize="11" RenderTransformOrigin="0.485,2.042" BorderThickness="1,0,1,1" Padding="2" FlowDirection="RightToLeft" />
-        <Label Content="貸方" HorizontalAlignment="Right" Height="20" Margin="0,257,260,0" VerticalAlignment="Top" Width="69" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
-        <Label Content="金額" HorizontalAlignment="Right" Height="20" Margin="0,282,261,0" VerticalAlignment="Top" Width="55" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
-        <Label Content="適用" HorizontalAlignment="Right" Height="20" Margin="0,321,260,0" VerticalAlignment="Top" Width="48" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="対象日" HorizontalAlignment="Right" Height="20" Margin="0,141,267.4,0" VerticalAlignment="Top" Width="46" FontSize="11" RenderTransformOrigin="0.485,2.042" BorderThickness="1,0,1,1" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="貸方" HorizontalAlignment="Right" Height="20" Margin="0,237,270.4,0" VerticalAlignment="Top" Width="50" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="金額" HorizontalAlignment="Right" Height="20" Margin="0,272,269.4,0" VerticalAlignment="Top" Width="45" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="適用" HorizontalAlignment="Right" Height="20" Margin="0,320,273.4,0" VerticalAlignment="Top" Width="48" FontSize="11" RenderTransformOrigin="0.485,2.042" Padding="2" FlowDirection="RightToLeft" />
 
-        <TextBox x:Name="TbJDate" HorizontalAlignment="Left" Height="21" Margin="765,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
-        <TextBox x:Name="TbJAmount" HorizontalAlignment="Left" Height="21" Margin="765,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>
-        <TextBox x:Name="TbJExp" HorizontalAlignment="Left" Height="21" Margin="765,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213"/>
-        <TextBox x:Name="TbZenJDate" HorizontalAlignment="Left" Height="21" Margin="867,93,0,0" TextWrapping="Wrap" Text="ZenJDate" VerticalAlignment="Top" Width="91" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
+        <TextBox x:Name="TbJDate" HorizontalAlignment="Left" Height="21" Margin="751,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+        <TextBox x:Name="TbJAmount" HorizontalAlignment="Left" Height="21" Margin="751,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" RenderTransformOrigin="0.388,-0.219"/>
+        <TextBox x:Name="TbJExp" HorizontalAlignment="Left" Height="21" Margin="750,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213"/>
+        <TextBox x:Name="TbZenJDate" HorizontalAlignment="Left" Height="21" Margin="755,161,0,0" TextWrapping="Wrap" Text="ZenJDate" VerticalAlignment="Top" Width="85" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
         <TextBox x:Name="TbZenDelNo" HorizontalAlignment="Left" Height="21" Margin="860,476,0,0" TextWrapping="Wrap" Text="ZenDelNo" VerticalAlignment="Top" Width="82" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
-        <TextBox x:Name="TbZenJAmount" HorizontalAlignment="Left" Height="21" Margin="860,290,0,0" TextWrapping="Wrap" Text="ZenJAmount" VerticalAlignment="Top" Width="81" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
-
-        <ComboBox x:Name="combo_Dr" 
-                  HorizontalAlignment="Left" Height="23" Margin="765,201,0,0" VerticalAlignment="Top" Width="213" SelectionChanged="combo_Dr_SelectionChanged" Padding="6,2,5,2">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding SDrCode}" Margin="2"/>
-                        <TextBlock Text="{Binding SDrName}" Margin="2"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <ComboBox x:Name="combo_Cr"
-                  HorizontalAlignment="Left" Height="23" Margin="765,252,0,0" VerticalAlignment="Top" Width="213" SelectionChanged="combo_Cr_SelectionChanged" Padding="6,2,5,2">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding SCrCode}" Margin="2"/>
-                        <TextBlock Text="{Binding SCrName}" Margin="2"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <ComboBox x:Name="combo_job"
-                  HorizontalAlignment="Left" Height="23" Margin="766,148,0,0" VerticalAlignment="Top" Width="213" SelectionChanged="combo_job_SelectionChanged" Padding="6,2,5,2">
+        <TextBox x:Name="TbZenJAmount" HorizontalAlignment="Left" Height="15" Margin="753,293,0,0" TextWrapping="Wrap" Text="ZenJAmount" VerticalAlignment="Top" Width="71" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
+        <ComboBox x:Name="Combo_job"
+                  HorizontalAlignment="Left" Height="23" Margin="750,106,0,0" VerticalAlignment="Top" Width="239" SelectionChanged="Combo_job_SelectionChanged" Padding="6,2,5,2">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -105,24 +82,51 @@
 
         <Button x:Name="ButtonAdd" Content="追加" HorizontalAlignment="Left" Height="20" Margin="880,369,0,0" VerticalAlignment="Top" Width="98" Click="ButtonAdd_Click" BorderThickness="1" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
 
-        <Label Content="仕訳データの削除" HorizontalAlignment="Left" Height="20" Margin="687,416,0,0" VerticalAlignment="Top" Width="153"  FontSize="11" Padding="2"/>
-        <Label Content="日 連番" HorizontalAlignment="Right" Height="20" Margin="0,451,259,0" VerticalAlignment="Top" Width="47" FontSize="11" Padding="2" FlowDirection="RightToLeft" />
+        <Label Content="仕訳データの削除" HorizontalAlignment="Left" Height="20" Margin="695,416,0,0" VerticalAlignment="Top" Width="88"  FontSize="11" Padding="2"/>
+        <Label Content="処理日 連番" HorizontalAlignment="Right" Height="20" Margin="0,451,234.4,0" VerticalAlignment="Top" Width="73" FontSize="11" Padding="2" FlowDirection="RightToLeft" />
 
-        <TextBox x:Name="TbDelBi" HorizontalAlignment="Left" Height="21" Margin="765,450,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>
+        <TextBox x:Name="TbDelBi" HorizontalAlignment="Left" Height="21" Margin="786,450,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69"/>
         <TextBox x:Name="TbDelNo" HorizontalAlignment="Left" Height="21" Margin="860,451,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="TbZenJExp" HorizontalAlignment="Left" Height="21" Margin="765,341,0,0" TextWrapping="Wrap" Text="ZenJExp" VerticalAlignment="Top" Width="213" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
-        <TextBox x:Name="TbZenDelBi" HorizontalAlignment="Left" Height="21" Margin="765,476,0,0" TextWrapping="Wrap" Text="ZenDelBi" VerticalAlignment="Top" Width="81" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
+        <TextBox x:Name="TbZenJExp" HorizontalAlignment="Left" Height="21" Margin="750,340,0,0" TextWrapping="Wrap" Text="ZenJExp" VerticalAlignment="Top" Width="213" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
+        <TextBox x:Name="TbZenDelBi" HorizontalAlignment="Left" Height="21" Margin="786,476,0,0" TextWrapping="Wrap" Text="ZenDelBi" VerticalAlignment="Top" Width="69" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.769"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
 
         <Button x:Name="ButtonDel" Content="削除" HorizontalAlignment="Left" Height="20" Margin="880,507,0,0" VerticalAlignment="Top" Width="98" Click="ButtonDel_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
         <Button x:Name="ButtonExls" Content="XLSX" HorizontalAlignment="Left" Height="20" Margin="706,10,0,0" VerticalAlignment="Top" Width="50" Click="ButtonExls_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
-        <TextBox x:Name="TbDr" HorizontalAlignment="Left" Height="21" Margin="765,178,0,0" TextWrapping="Wrap" Text="Dr" VerticalAlignment="Top" Width="212" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" FlowDirection="RightToLeft"/>
-        <TextBox x:Name="TbCr" HorizontalAlignment="Left" Height="21" Margin="766,229,0,0" TextWrapping="Wrap" Text="Cr" VerticalAlignment="Top" Width="212" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" FlowDirection="RightToLeft"/>
-        <Label Content="作業形態" HorizontalAlignment="Right" Height="24" Margin="0,119,259,0" VerticalAlignment="Top" Width="56" FontSize="11" RenderTransformOrigin="0.485,2.042" BorderThickness="1,0,1,1" FlowDirection="RightToLeft" Padding="2" />
-        <ComboBox x:Name="combo_jsel" HorizontalAlignment="Left" Margin="767,119,0,0" VerticalAlignment="Top" Width="59" SelectionChanged="combo_jsel_SelectionChanged">
-        <ComboBoxItem>通常</ComboBoxItem>
-        <ComboBoxItem>年度</ComboBoxItem>
+        <TextBox x:Name="TbDr" HorizontalAlignment="Left" Height="21" Margin="776,175,0,0" TextWrapping="Wrap" Text="Dr" VerticalAlignment="Top" Width="212" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" FlowDirection="RightToLeft"/>
+        <TextBox x:Name="TbCr" HorizontalAlignment="Left" Height="21" Margin="776,221,0,0" TextWrapping="Wrap" Text="Cr" VerticalAlignment="Top" Width="212" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" FlowDirection="RightToLeft"/>
+        <ComboBox x:Name="CBox_kari" 
+                  HorizontalAlignment="Left" Height="23" Margin="751,190,0,0" VerticalAlignment="Top" Width="238"
+                  SelectionChanged="CBox_kari_SelectionChanged" Padding="6,2,5,2" RenderTransformOrigin="0.369,-0.174">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding SDrCode}" Margin="2"/>
+                        <TextBlock Text="{Binding SDrName}" Margin="2"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
-
+        <ComboBox x:Name="CBox_kashi"
+                  HorizontalAlignment="Left" Height="23" Margin="751,237,0,0" VerticalAlignment="Top" Width="237" 
+                  SelectionChanged="CBox_kashi_SelectionChanged" Padding="6,2,5,2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding SCrCode}" Margin="2"/>
+                        <TextBlock Text="{Binding SCrName}" Margin="2"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </Window>
 

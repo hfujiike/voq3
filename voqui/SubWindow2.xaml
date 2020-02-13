@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:voqui3"
         mc:Ignorable="d"
-        Title="Voqui ExcelOut" Height="117" Width="518" Loaded="loadSubW2" ContentRendered="voqui_CRendered">
+        Title="Voqui ExcelOut" Height="117" Width="518" Loaded="LoadSubW2" ContentRendered="Voqui_CRendered">
     <Grid Margin="10,0,2,5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*"/>

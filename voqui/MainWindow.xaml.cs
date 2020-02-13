@@ -22,17 +22,17 @@ namespace voqui3
     public partial class MainWindow : Window
     {
         // 実行パス ---------------------------
-        static string s_EPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        static string s_EDir = System.IO.Path.GetDirectoryName(s_EPath);
+        static readonly string s_EPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        static readonly string s_EDir = System.IO.Path.GetDirectoryName(s_EPath);
 
         // ファイル関係 ---------------------------
-        static string s_pfile_param1 = s_EDir + "\\VOQ3P1.txt";
-        static string s_pfile_param2 = s_EDir + "\\VOQ3P2.txt";
-        static string s_pfile_log    = s_EDir + "\\VOQ3L1.txt";
-        static string s_pfile_jounal = s_EDir + "\\VOQ3D1.csv";
-        static string s_pfile_Ledger = s_EDir + "\\VOQ3D2.csv";
-        static string s_pfile_Shisan = s_EDir + "\\VOQ3D3.csv";
-        static string s_pfile_output = s_EDir + "\\VOQ3D0.xlsx";
+        public string s_pfile_param1 = s_EDir + "\\VOQ3P1.txt";
+        public string s_pfile_param2 = s_EDir + "\\VOQ3P2.txt";
+        public string s_pfile_log    = s_EDir + "\\VOQ3L1.txt";
+        public string s_pfile_jounal = s_EDir + "\\VOQ3D1.csv";
+        public string s_pfile_Ledger = s_EDir + "\\VOQ3D2.csv";
+        public string s_pfile_Shisan = s_EDir + "\\VOQ3D3.csv";
+        public string s_pfile_output = s_EDir + "\\VOQ3D0.xlsx";
 
         Encoding EncJIS = Encoding.GetEncoding("Shift-JIS");
 
@@ -51,37 +51,34 @@ namespace voqui3
         static int i_jamount = 0;
         static string s_jamount = "";
         static string s_jxplanation = "";
-        static bool b_jobtsuujou = true;
 
         // LIST ----------------------------
         // 作業リスト　コンボボックスへバインド
-        static List<JounalOpe> ListJounalOpe1 = new List<JounalOpe>();
-        static List<JounalOpe> ListJounalOpe2 = new List<JounalOpe>();
+        public List<JounalJS> ListJounalJS = new List<JounalJS>();
         // 選択combobox用のリスト　借方と貸方
-        static List<SelectDr> ListSelectDr = new List<SelectDr>();
-        static List<SelectCr> ListSelectCr = new List<SelectCr>();
+        public List<SelectDr> ListSelectDr = new List<SelectDr>();
+        public List<SelectCr> ListSelectCr = new List<SelectCr>();
         // 科目リスト　参照のみ
-        static List<BSubject> ListBSubject = new List<BSubject>();
+        public List<BSubject> ListBSubject = new List<BSubject>();
         // 仕訳データ
-        static List<JounalData> ListJounalData = new List<JounalData>();
+        public List<JounalData> ListJounalData = new List<JounalData>();
         // 元帳データのリスト
-        static List<GLedger> ListGLeger = new List<GLedger>();
+        public List<GLedger> ListGLeger = new List<GLedger>();
         // 試算表データのリスト
-        static List<ShisanHyou> ListShisanhyou = new List<ShisanHyou>();
+        public List<ShisanHyou> ListShisanhyou = new List<ShisanHyou>();
 
         // ログ用コンスタント ----------------
-        static string s_log = "\r\n\r\n";
-        static string s_check = "";
-        static string s_w1 = "";
-        static string s_w2 = "";
-        static string s_kanma = ",";
+        public string s_log = "\r\n\r\n";
+        public string s_check = "";
+        public string s_w1 = "";
+        public string s_w2 = "";
+        public string s_kanma = ",";
 
         // ----------------------------------------------------------------------
 
-        public bool f00_saisho()
+        // 初回処理
+        public bool F00_saisho()
         {
-            // 初回処理
-
             try
             {
 
@@ -123,11 +120,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f01_get_param1_file()
+        // ﾊﾟﾗﾒｰﾀ1の読込
+        public bool F01_get_param1_file()
         {
-            // ﾊﾟﾗﾒｰﾀ1の読込
-
             string s_rec = "";
 
             try
@@ -186,11 +181,9 @@ namespace voqui3
 
         }
 
-
-        public bool f02_put_param1_file()
+        // ﾊﾟﾗﾒｰﾀ1のファイル保存
+        public bool F02_put_param1_file()
         {
-            // ﾊﾟﾗﾒｰﾀ1のファイル保存
-
             string s_rec = "";
 
             try
@@ -231,15 +224,12 @@ namespace voqui3
             }
         }
 
-
-        public bool f03_get_param2_file()
+        // ﾊﾟﾗﾒｰﾀ２の読込
+        public bool F03_get_param2_file()
         {
-            // ﾊﾟﾗﾒｰﾀ２の読込
+            string s_rec;
 
-            string s_rec = "";
-
-            ListJounalOpe1.Clear();
-            ListJounalOpe2.Clear();
+            ListJounalJS.Clear();
             ListBSubject.Clear();
 
             try
@@ -258,7 +248,8 @@ namespace voqui3
                         string s_item1 = a_rec[1].Trim();
                         //
                         string[] a_item = s_item1.Split(',');
-                        if (s_item0 == "JOUNALOPE1")
+                        //
+                        if (s_item0 == "JOUNALJS")
                         {
                             // 仕訳作業表取り込み
                             string s_c0 = a_item[0];
@@ -266,29 +257,16 @@ namespace voqui3
                             string s_c2 = a_item[2];
                             string s_c3 = a_item[3];
                             string s_c4 = a_item[4];
-                            JounalOpe JO = new JounalOpe();
-                            JO.JOpeName = s_c0;
-                            JO.DrGroup = s_c1;
-                            JO.CrGroup = s_c2;
-                            JO.DrGMes = s_c3;
-                            JO.CrGMes = s_c4;
-                            ListJounalOpe1.Add(JO);
-                        }
-                        if (s_item0 == "JOUNALOPE2")
-                        {
-                            // 仕訳作業表取り込み
-                            string s_c0 = a_item[0];
-                            string s_c1 = a_item[1];
-                            string s_c2 = a_item[2];
-                            string s_c3 = a_item[3];
-                            string s_c4 = a_item[4];
-                            JounalOpe JO = new JounalOpe();
-                            JO.JOpeName = s_c0;
-                            JO.DrGroup = s_c1;
-                            JO.CrGroup = s_c2;
-                            JO.DrGMes = s_c3;
-                            JO.CrGMes = s_c4;
-                            ListJounalOpe2.Add(JO);
+                            JounalJS JO = new JounalJS
+                            {
+                                JOpeName = s_c0,
+                                DrGroup = s_c1,
+                                CrGroup = s_c2,
+                                DrGMes = s_c3,
+                                CrGMes = s_c4
+                            };
+                            ListJounalJS.Add(JO);
+                            s_log += s_c0;
                         }
                         else if (s_item0 == "BSUBJECT")
                         {
@@ -296,10 +274,13 @@ namespace voqui3
                             string s_c0 = a_item[0];
                             string s_c1 = a_item[1];
                             int i_c0 = int.Parse(s_c0);
-                            BSubject BS = new BSubject();
-                            BS.SCode = i_c0;
-                            BS.Sname = s_c1;
+                            BSubject BS = new BSubject
+                            {
+                                SCode = i_c0,
+                                Sname = s_c1
+                            };
                             ListBSubject.Add(BS);
+                            s_log += s_c1;
                         }
                     }
                 }
@@ -316,39 +297,27 @@ namespace voqui3
 
         }
 
-
-
-        public bool f041_seljob(int Sel)
+        // 作業選択  コンボボックス作業の選択
+        public bool F04_seljob()
         {
-            // 作業選択  コンボボックス作業の選択
-
             string s_pos = "";
             try
             {
-                s_pos = "f041 01 s sagyou_handan";
+                s_pos = "f04 01 s sagyou_handan";
                 s_log += "\r\n" + s_pos;
 
-                if (Sel == 0)
-                {
-                    this.combo_job.ItemsSource = ListJounalOpe1;
-                    this.combo_job.Items.Refresh();
-                    b_jobtsuujou = true;
-                }
-                if (Sel != 0)
-                {
-                    this.combo_job.ItemsSource = ListJounalOpe2;
-                    this.combo_job.Items.Refresh();
-                    b_jobtsuujou = false;
-                }
-
+                // コンボへ処理選択を設定
+                this.Combo_job.ItemsSource = ListJounalJS;
+                this.Combo_job.Items.Refresh();
+                // コンボかりをクリア
                 ListSelectDr.Clear();
-                this.combo_Dr.ItemsSource = ListSelectDr;
-                this.combo_Dr.Items.Refresh();
-                this.TbDr.Text = "";                
-
+                this.CBox_kari.ItemsSource = ListSelectDr;
+                this.CBox_kari.Items.Refresh();
+                this.TbDr.Text = "";
+                // コンボかしをクリア
                 ListSelectCr.Clear();
-                this.combo_Cr.ItemsSource = ListSelectCr;
-                this.combo_Cr.Items.Refresh();
+                this.CBox_kashi.ItemsSource = ListSelectCr;
+                this.CBox_kashi.Items.Refresh();
                 this.TbCr.Text = "";
 
                 return true;
@@ -360,32 +329,37 @@ namespace voqui3
             }
         }
 
-        public bool f042_sagyou_handan(int Sel)
+        // 作業判断　通常用　コンボボックス作業の設定
+        public bool F05_sagyou_handan(int Sel)
         {
-            // 作業判断　通常用　コンボボックス作業の設定
-
             string s_pos = "";
             try
             {
-                s_pos = "f042 01 s sagyou_handan ";
+                s_pos = "F05 01 s sagyou_handan ";
                 s_log += "\r\n" + s_pos;
 
                 int i_gs = 0;
                 int i_ge = 0;
-                JounalOpe JO = new JounalOpe();
-                if (b_jobtsuujou)
-                {
-                    JO = ListJounalOpe1[Sel];
-                }
-                else
-                {
-                    JO = ListJounalOpe2[Sel];
-                }
+                JounalJS JO = new JounalJS();
+                JO = ListJounalJS[Sel];
                 TbDr.Text = JO.DrGMes;
                 TbCr.Text = JO.CrGMes;
 
-                s_pos = "f042 02 s karikata combo";
+                s_pos = "F05 02 s karikata combo";
                 s_log += "\r\n" + s_pos;
+
+                string s_nen = JO.JOpeName.Substring(0, 2);
+                if (s_nen == "年頭")
+                {
+                    TbJDate.Text = "1/1";
+                }
+                else if (s_nen == "通常")
+                {
+                    TbJDate.Text = DateTime.Now.ToString("MM/dd");
+                } else if (s_nen == "年末")
+                {
+                    TbJDate.Text = "12/31";
+                }
 
                 string s_dg = JO.DrGroup;                
                 if ( s_dg.Length == 2 )
@@ -404,18 +378,19 @@ namespace voqui3
                 {
                     if (i_gs < BS.SCode && BS.SCode <= i_ge )
                     {
-                        SelectDr SD = new SelectDr();
-                        SD.SDrCode = BS.SCode;
-                        SD.SDrName = BS.Sname;
-
+                        SelectDr SD = new SelectDr
+                        {
+                            SDrCode = BS.SCode,
+                            SDrName = BS.Sname
+                        };
                         ListSelectDr.Add(SD);
                     }
                 }
 
-                this.combo_Dr.ItemsSource = ListSelectDr;
-                this.combo_Dr.Items.Refresh();
+                this.CBox_kari.ItemsSource = ListSelectDr;
+                this.CBox_kari.Items.Refresh();
 
-                s_pos = "f042 03 s kashikata combo";
+                s_pos = "F05 03 s kashikata combo";
                 s_log += "\r\n" + s_pos;
 
                 string s_cg = JO.CrGroup;
@@ -435,16 +410,17 @@ namespace voqui3
                 {
                     if (i_gs < BS.SCode && BS.SCode <= i_ge)
                     {
-                        SelectCr SC = new SelectCr();
-                        SC.SCrCode = BS.SCode;
-                        SC.SCrName = BS.Sname;
-
+                        SelectCr SC = new SelectCr
+                        {
+                            SCrCode = BS.SCode,
+                            SCrName = BS.Sname
+                        };
                         ListSelectCr.Add(SC);                    
                     }
                 }
 
-                this.combo_Cr.ItemsSource = ListSelectCr;
-                this.combo_Cr.Items.Refresh();
+                this.CBox_kashi.ItemsSource = ListSelectCr;
+                this.CBox_kashi.Items.Refresh();
 
                 return true;
             }
@@ -455,12 +431,10 @@ namespace voqui3
             }
         }
 
-
-        public bool f06_karikata_sel()
+        // コンボから借方情報セット
+        public bool F06_karikata_sel()
         {
-            // コンボから借方情報セット
-
-            int i_index = combo_Dr.SelectedIndex;
+            int i_index = CBox_kari.SelectedIndex;
             
             if (i_index >= 0)
             {
@@ -476,11 +450,10 @@ namespace voqui3
             }
         }
 
-        public bool f07_kashikata_sel()
+        // コンボから貸方情報セット
+        public bool F07_kashikata_sel()
         {
-            // コンボから貸方情報セット
-
-            int i_index = combo_Cr.SelectedIndex;
+            int i_index = CBox_kashi.SelectedIndex;
             if (i_index >= 0)
             {
                 i_scrcode = ListSelectCr[i_index].SCrCode;
@@ -495,11 +468,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f09_put_log_file()
+        // ログのファイルアウト
+        public bool F09_put_log_file()
         {
-            // ログのファイルアウト
-
             try
             {
                 using (StreamWriter SwParam = new StreamWriter(s_pfile_log, true, EncJIS))
@@ -517,11 +488,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f11_get_JounalData()
+        // 仕訳データの読込
+        public bool F11_get_JounalData()
         {
-            // 仕訳データの読込
-
             string s_rec = "";
             int i_amount = 0;
 
@@ -585,11 +554,9 @@ namespace voqui3
 
         }
 
-
-        public bool f12_sort_jounal_data()
+        // 仕訳データのSORT
+        public bool F12_sort_jounal_data()
         {
-            // 仕訳データのSORT
-
             try
             {
                 s_log += "\r\n f13 01 s put_JounalData";
@@ -632,10 +599,9 @@ namespace voqui3
            
         }
 
-        public bool f13_put_jounal_file()
+        // 仕訳データのファイルアウト
+        public bool F13_put_jounal_file()
         {
-            // 仕訳データのファイルアウト
-
             string s_rec = "";
             int i_amount = 0;            
 
@@ -676,11 +642,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f21_data_add()
+        // データの追加
+        public bool F21_data_add()
         {
-            // データの追加
-
             string s_jdateno = "";
             int i_nextjno = 0;
             string s_kanma = ",";
@@ -795,11 +759,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f22_siwake_delete()
+        // delete 仕訳データの削除
+        public bool F22_siwake_delete()
         {
-            // delete 仕訳データの削除
-
             string s_jdateno = "";
 
 
@@ -893,11 +855,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f31_motochou()
+        // 元帳データ作成とソート
+        public bool F31_motochou()
         {
-            // 元帳データ作成とソート
-
             try
             {
                 s_log += "\r\n f31 01 Ledger Create ";
@@ -979,11 +939,9 @@ namespace voqui3
             }  
         }
 
-
-        public bool f32_shisan()
+        // 元帳集計と試算表作成
+        public bool F32_shisan()
         {
-            // 元帳集計と試算表作成
-
             try
             {
                 s_log += "\r\n f32 01 Motochou shuukei start ";
@@ -1151,11 +1109,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f34_put_motochou()
+        // 元帳データアウト
+        public bool F34_put_motochou()
         {
-            // 元帳データアウト
-
             string s_rec = "";
             string s_kanma = ",";
 
@@ -1192,11 +1148,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f35_put_shisan()
+        // 試算表データアウト
+        public bool F35_put_shisan()
         {
-            // 試算表データアウト
-
             string s_rec = "";
             string s_kanma = ",";
 
@@ -1229,27 +1183,25 @@ namespace voqui3
             }
         }
 
-
-#region //const mainwindow
+        // MainWindow
         public MainWindow()
         {
             InitializeComponent();
         }
-        #endregion
 
-#region イベント
+// イベント
+
+        //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽError
         private void BoxError(string m1)
         {
-            //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽ
-
             string w_mes = m1 + "\r\n修整しやり直しください。";
             MessageBox.Show(w_mes,
                 "voqui3 Error",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
+        //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽExclamation
         private void BoxMes(string m1)
-
         {
             string w_mes = m1 + "\r\n確認します。";
                 MessageBox.Show(w_mes,
@@ -1257,11 +1209,9 @@ namespace voqui3
                     MessageBoxButton.OK,
                     MessageBoxImage.Exclamation);
         }
-
+        //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽ OK CANCEL
         private bool BoxDoch(string mes)
         {
-            // 簡略化したOK CANCEL のﾒｯｾｰｼﾞﾎﾞｯｸｽ
-
             string w_mes;
             bool b_OK = true;
 
@@ -1280,51 +1230,46 @@ namespace voqui3
             return b_OK;
         }
 
-        // -------------------------------------------------------------------------- //-i
+// ボタン
 
+        // ボタン「DATA追加」
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            // ボタン「DATA追加」
-
             bool b_value = true;
 
             ButtonAdd.IsEnabled = false;
 
-            b_value = f21_data_add();
+            b_value = F21_data_add();
 
             ButtonAdd.IsEnabled = true;
             ButtonOut.IsEnabled = true;
             ButtonSORT.IsEnabled = true;
 
-            f09_put_log_file();
+            F09_put_log_file();
             if (!b_value) return;
 
         }
-
+        // ボタン「DATA削除」
         private void ButtonDel_Click(object sender, RoutedEventArgs e)
         {
-            // ボタン「DATA削除」
-
             bool b_value = true;
 
             ButtonDel.IsEnabled = false;
 
-            b_value = f22_siwake_delete();
+            b_value = F22_siwake_delete();
 
             ButtonDel.IsEnabled = true;
             ButtonOut.IsEnabled = true;
             ButtonSORT.IsEnabled = true;
 
-            f09_put_log_file();
+            F09_put_log_file();
             if (!b_value) return;
 
         }
 
-
+        // ボタン「設定」
         private void ButtonSettei_Click(object sender, RoutedEventArgs e)
         {
-            // ボタン「設定」
-
             var SWin1 = new SubWindow1();
             SWin1.Show();
 
@@ -1332,26 +1277,24 @@ namespace voqui3
 
         }
 
-
+        // ボタン「出力」
         private void ButtonOut_Click(object sender, RoutedEventArgs e)
         {
-            // ボタン「出力」
-
             bool b_value = true;
 
             ButtonOut.IsEnabled = false;
 
-            b_value = f13_put_jounal_file();
+            b_value = F13_put_jounal_file();
 
-            if (b_value) b_value = f31_motochou();
+            if (b_value) b_value = F31_motochou();
 
-            if (b_value) b_value = f32_shisan();
+            if (b_value) b_value = F32_shisan();
 
-            if (b_value) b_value = f34_put_motochou();
+            if (b_value) b_value = F34_put_motochou();
 
-            if (b_value) b_value = f35_put_shisan();
+            if (b_value) b_value = F35_put_shisan();
 
-            f09_put_log_file();
+            F09_put_log_file();
 
             var SWin2 = new SubWindow2();
             SWin2.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -1361,135 +1304,113 @@ namespace voqui3
 
         }
 
+        // ウインドウ　ロードイベント
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // ウインドウ　ロードイベント
-
-            bool b_value = true;
-
-            b_value = f00_saisho();
-
-            if (b_value) b_value = f01_get_param1_file();
-
-            if (b_value) b_value = f03_get_param2_file();
-
-            if (b_value) b_value = f11_get_JounalData();
-
-            f09_put_log_file();
-
-        }
-
-        private void combo_jsel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 仕訳作業種類　COMBOBOX 処理形態の選択
-
-            bool b_value = true;
-            int i_si = combo_jsel.SelectedIndex;
-
-            b_value = f041_seljob(i_si);
-
-            f09_put_log_file();
-        }
-        private void combo_job_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 仕訳作業種類　通常　COMBOBOX 選択変更イベント
-
-            bool b_value = true;
-            int i_si = combo_job.SelectedIndex;
-
-            if (i_si >= 0) b_value = f042_sagyou_handan(i_si);
-
-            f09_put_log_file();
-
-        }
-
-        private void combo_Dr_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 仕訳追加　借方　COMBOBOX 選択変更イベント
-
             bool b_value;
 
-            b_value = f06_karikata_sel();
+            b_value = F00_saisho();
 
-            f09_put_log_file();
+            if (b_value) b_value = F01_get_param1_file();
+
+            if (b_value) b_value = F03_get_param2_file();
+
+            if (b_value) b_value = F04_seljob();
+
+            if (b_value) b_value = F11_get_JounalData();
+
+            if (b_value) s_log += "\r\n" + " ..";
+            F09_put_log_file();
 
         }
 
-        private void combo_Cr_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        // 仕訳作業種類　通常　COMBOBOX 選択変更イベント
+        private void Combo_job_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // 仕訳追加　貸方　COMBOBOX 選択変更イベント
+            bool b_value = true;
+            int i_si = Combo_job.SelectedIndex;
 
-            bool b_value;
+            if (i_si >= 0) b_value = F05_sagyou_handan(i_si);
 
-            b_value = f07_kashikata_sel();
-
-            f09_put_log_file();
+            F09_put_log_file();
 
         }
 
+        // テスト 8/27
         private void ButtonTest_Click(object sender, RoutedEventArgs e)
         {
-            // テスト 8/27
-
             this.ButtonTest.Content = "--";
         }
 
+        // 「SORT」ボタン
         private void ButtonSORT_Click(object sender, RoutedEventArgs e)
         {
-            // 「SORT」ボタン
-
             bool b_value;
 
             ButtonSORT.IsEnabled = false;
 
-            b_value = f12_sort_jounal_data();
+            b_value = F12_sort_jounal_data();
 
-            f09_put_log_file();
+            F09_put_log_file();
 
         }
 
+        // 画面の「X」ボタン
         private void Window_Closed(object sender, EventArgs e)
         {
-            // 画面の「X」ボタン
-
         }
 
+        // 「保存終了」ボタン
         private void ButtonEnd_Click(object sender, RoutedEventArgs e)
         {
-            // 「保存終了」ボタン
-
             bool b_value;
 
-            b_value = f02_put_param1_file();
+            b_value = F02_put_param1_file();
 
-            if (b_value) b_value = f13_put_jounal_file();
+            if (b_value) b_value = F13_put_jounal_file();
 
-            f09_put_log_file();
+            F09_put_log_file();
 
             this.Close();
         }
 
+        // ボタン「Exls」エクセルファイルを開く
         private void ButtonExls_Click(object sender, RoutedEventArgs e)
         {
-            // ボタン「Exls」エクセルファイルを開く
-
             if (File.Exists(s_pfile_output))
             {
                 System.Diagnostics.Process p = System.Diagnostics.Process.Start(s_pfile_output);
             }
         }
 
+        // 仕訳追加　借方　COMBOBOX 選択変更イベント
+        private void CBox_kari_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bool b_value;
 
+            b_value = F06_karikata_sel();
+
+            F09_put_log_file();
+        }
+
+        // 仕訳追加　貸方　COMBOBOX 選択変更イベント
+        private void CBox_kashi_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bool b_value;
+
+            b_value = F07_kashikata_sel();
+
+            F09_put_log_file();
+        }
     }
-    #endregion
+
 
     #region その他クラス
-    // ----------------------------------------------------------------------------------- //-c
 
-    class JounalOpe
+    // 仕訳作業
+    public class JounalJS
     {
-        // 仕訳作業
-
         public string JOpeName { get; set; }      // 仕訳作業名
         public string DrGroup { get; set; }       // 借方グループ
         public string CrGroup { get; set; }       // 貸方グループ
@@ -1497,38 +1418,30 @@ namespace voqui3
         public string CrGMes { get; set; }        // 貸方グループ説明 Credit
     }
 
-
-    class SelectDr
+    // 選択借方
+    public class SelectDr
     {
-        // 選択借方
-
         public int SDrCode { get; set; }          // 選択借方コード
         public string SDrName { get; set; }       // 選択借方
     }
 
-
-    class SelectCr
+    // 選択貸方
+    public class SelectCr
     {
-        // 選択貸方
-
         public int SCrCode { get; set; }          // 選択貸方コード
         public string SCrName { get; set; }       // 選択貸方
     }
 
-
-    class BSubject
+    // 科目表
+    public class BSubject
     {
-        // 科目表
-
         public int SCode { get; set; }            // 科目コード
         public string Sname { get; set; }         // 科目名
     }
 
-
-    class JounalData
+    // 仕訳データ
+    public class JounalData
     {
-        // 仕訳データ
-
         public string JDateNo { get; set; }       // 日連番
         public string DrCode { get; set; }        // 借方コード
         public string DrName { get; set; }        // 借方
@@ -1538,11 +1451,9 @@ namespace voqui3
         public string JExplanation { get; set; }  // 適用
     }
 
-
-    class GLedger
+    // 元帳データ
+    public class GLedger
     {
-        // 元帳データ
-
         public string GLSKey { get; set; }        // 元帳キー(元帳科目コード+日連番)
         public int LSCode { get; set; }           // 元帳科目コード
         public string LSName { get; set; }        // 元帳科目
@@ -1556,11 +1467,9 @@ namespace voqui3
         public int LTotal { get; set; }           // 残高
     }
 
-
-    class ShisanHyou
+    // 試算表データ
+    public class ShisanHyou
     {
-        // 試算表データ
-
         public int SSCode { get; set; }           // 科目コード
         public int DrZan { get; set; }            // 借方残高
         public int DrSum { get; set; }            // 借方合計
@@ -1568,8 +1477,9 @@ namespace voqui3
         public int CrSum { get; set; }            // 貸方合計
         public int CrZan { get; set; }            // 貸方残高
     }
-#endregion
+    #endregion
     // ----------------------------------------------------------------------- voqui3
     // ----------------------------------------------------------------------- 2017/8/4 start
     // ----------------------------------------------------------------------- 2017/8/28 change
+    // ----------------------------------------------------------------------- 2020/2/12 change 3.3
 }
