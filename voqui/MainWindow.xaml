@@ -20,11 +20,11 @@
 
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Margin="0,0,2,-6">
 
-        <Button x:Name="ButtonSettei" Content="設定" HorizontalAlignment="Left" Height="20" Margin="760,10,0,0" VerticalAlignment="Top" Width="50" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonSettei_Click"/>
-        <Button x:Name="ButtonOut" Content="出力" HorizontalAlignment="Left" Height="20" Margin="867,10,0,0" VerticalAlignment="Top" Width="50" Click="ButtonOut_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" RenderTransformOrigin="1.18,0.55"/>
-        <Button x:Name="ButtonTest" Content="SE" HorizontalAlignment="Left" Height="20" Margin="309,10,0,0" VerticalAlignment="Top" Width="50" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonTest_Click"/>
-        <Button x:Name="ButtonSORT" Content="SORT" HorizontalAlignment="Left" Height="20" Margin="814,10,0,0" VerticalAlignment="Top" Width="50" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonSORT_Click"/>
-        <Button x:Name="ButtonEnd" Content="保存終了" HorizontalAlignment="Left" Height="20" Margin="920,10,0,0" VerticalAlignment="Top" Width="78" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonEnd_Click"/>
+        <Button x:Name="ButtonSettei" Content="設定" HorizontalAlignment="Left" Height="20" Margin="677,10,0,0" VerticalAlignment="Top" Width="60" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonSettei_Click"/>
+        <Button x:Name="ButtonOut" Content="帳票編集" HorizontalAlignment="Left" Height="20" Margin="807,10,0,0" VerticalAlignment="Top" Width="60" Click="ButtonOut_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" RenderTransformOrigin="1.18,0.55"/>
+        <Button x:Name="ButtonTest" Content="SE" HorizontalAlignment="Left" Height="20" Margin="374,32,0,0" VerticalAlignment="Top" Width="50" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonTest_Click"/>
+        <Button x:Name="ButtonSORT" Content="SORT" HorizontalAlignment="Left" Height="20" Margin="742,10,0,0" VerticalAlignment="Top" Width="60" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonSORT_Click"/>
+        <Button x:Name="ButtonEnd" Content="保存終了" HorizontalAlignment="Left" Height="20" Margin="937,10,0,0" VerticalAlignment="Top" Width="60" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Click="ButtonEnd_Click"/>
 
         <TextBox x:Name="TbMes" HorizontalAlignment="Right" Height="21" Margin="0,552,19,0" TextWrapping="Wrap" Text="仕訳作業を始めてください。" VerticalAlignment="Top" Width="988" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" Padding="2,0" HorizontalContentAlignment="Right"/>
         <TextBox x:Name="TbOpeDate" HorizontalAlignment="Left" Height="21" Margin="10,12,0,0" TextWrapping="Wrap" Text="Ope Date" VerticalAlignment="Top" Width="162" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0"/>
@@ -100,7 +100,7 @@
         </TextBox>
 
         <Button x:Name="ButtonDel" Content="削除" HorizontalAlignment="Left" Height="20" Margin="880,507,0,0" VerticalAlignment="Top" Width="98" Click="ButtonDel_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
-        <Button x:Name="ButtonExls" Content="XLSX" HorizontalAlignment="Left" Height="20" Margin="706,10,0,0" VerticalAlignment="Top" Width="50" Click="ButtonExls_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Button x:Name="ButtonExls" Content="帳票表示" HorizontalAlignment="Left" Height="20" Margin="872,10,0,0" VerticalAlignment="Top" Width="60" Click="ButtonExls_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
         <TextBox x:Name="TbDr" HorizontalAlignment="Left" Height="21" Margin="776,175,0,0" TextWrapping="Wrap" Text="Dr" VerticalAlignment="Top" Width="212" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" FlowDirection="RightToLeft"/>
         <TextBox x:Name="TbCr" HorizontalAlignment="Left" Height="21" Margin="776,221,0,0" TextWrapping="Wrap" Text="Cr" VerticalAlignment="Top" Width="212" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" BorderThickness="0" FlowDirection="RightToLeft"/>
         <ComboBox x:Name="CBox_kari" 

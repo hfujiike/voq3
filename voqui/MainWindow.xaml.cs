@@ -37,20 +37,19 @@ namespace voqui3
         Encoding EncJIS = Encoding.GetEncoding("Shift-JIS");
 
         // その他変数  param -------------------------------
-        static int i_nendo = 0;
-        static string s_nendonew = "";
-        static int i_endjno = 0;
-        static string s_hyoud1 = "";
-        static string s_hyoud2 = "";
+        public int i_nendo = 0;
+        public int i_endjno = 0;
+        public string s_hyoud1 = "";
+        public string s_hyoud2 = "";
 
         // その他変数 --------------------------------------
-        static int i_sdrcode = 0;
-        static int i_scrcode = 0;
-        static string s_sdrname = "";
-        static string s_scrname = "";
-        static int i_jamount = 0;
-        static string s_jamount = "";
-        static string s_jxplanation = "";
+        public int i_sdrcode = 0;
+        public int i_scrcode = 0;
+        public string s_sdrname = "";
+        public string s_scrname = "";
+        public int i_jamount = 0;
+        public string s_jamount = "";
+        public string s_jxplanation = "";
 
         // LIST ----------------------------
         // 作業リスト　コンボボックスへバインド
@@ -144,11 +143,6 @@ namespace voqui3
                             bool b_r = int.TryParse(s_item1, out i_nendo);
                             s_log += "\r\n f01 11 NENDO " + s_item1 + b_r.ToString();
                         }
-                        else if (s_item0 == "NENDONEW")
-                        {
-                            s_nendonew = s_item1;
-                            s_log += "\r\n f01 12 NENDONEW " + s_item1;
-                        }
                         else if (s_item0 == "HYUD1")
                         {
                             s_hyoud1 = s_item1;
@@ -192,12 +186,12 @@ namespace voqui3
                 s_log += "\r\n f02 01 s put_param1_file ";
                 using (StreamWriter SwParam = new StreamWriter(s_pfile_param1, false, EncJIS))
                 {
-                    if (i_nendo > 2000)
-                    {
-                        s_rec = "NENDO=" + i_nendo.ToString();
-                        SwParam.WriteLine(s_rec);
-                    }
-                    if (i_endjno > 1000)
+                    // 年度
+                    s_rec = "NENDO=" + i_nendo.ToString();
+                    SwParam.WriteLine(s_rec);
+
+                    // 最終連番
+                    if (i_endjno > 999)
                     {
                         s_rec = "ENDJNO=" + i_endjno.ToString();
                         SwParam.WriteLine(s_rec);
@@ -498,23 +492,14 @@ namespace voqui3
 
             try
             {
-                //
-                s_log += "\r\n f11 01 s get_JounalData";
-
-                if (s_nendonew == "Y")
+                s_log += "\r\n f11 12 JounalData bind";
+                if (i_endjno > 1000)
                 {
-                    s_log += "\r\n f11 11 JounalData Clear";
-                    i_endjno = 1000;
-                }
-                else
-                {
-                    s_log += "\r\n f11 12 JounalData bind";
+                    // 仕分けがある場合ListJounalDataへadd
                     using (StreamReader SrJounal = new StreamReader(s_pfile_jounal, EncJIS))
                     {
-                        //
                         while (SrJounal.Peek() >= 0)
                         {
-                            //
                             s_rec = SrJounal.ReadLine() + ",,";
                             s_check = s_rec;
                             string[] a_item = s_rec.Split(',');
@@ -603,7 +588,7 @@ namespace voqui3
         public bool F13_put_jounal_file()
         {
             string s_rec = "";
-            int i_amount = 0;            
+            int i_amount;            
 
             try
             {
@@ -738,11 +723,9 @@ namespace voqui3
                 // スクロールバーを下に持ってくる
                 if (LV_shiwake.Items.Count > 0)
                 {
-                    var KonoDGC = VisualTreeHelper.GetChild(LV_shiwake, 0) as Decorator;
-                    if (KonoDGC != null)
+                    if (VisualTreeHelper.GetChild(LV_shiwake, 0) is Decorator KonoDGC)
                     {
-                        var KonoScroll = KonoDGC.Child as ScrollViewer;
-                        if (KonoScroll != null) KonoScroll.ScrollToEnd();
+                        if (KonoDGC.Child is ScrollViewer KonoScroll) KonoScroll.ScrollToEnd();
                     }
                 }
                 LV_shiwake.Items.Refresh();
@@ -1189,7 +1172,7 @@ namespace voqui3
             InitializeComponent();
         }
 
-// イベント
+// ﾒｯｾｰｼﾞﾎﾞｯｸｽ
 
         //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽError
         private void BoxError(string m1)
@@ -1230,7 +1213,7 @@ namespace voqui3
             return b_OK;
         }
 
-// ボタン
+// ボタンと イベント
 
         // ボタン「DATA追加」
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -1252,7 +1235,7 @@ namespace voqui3
         // ボタン「DATA削除」
         private void ButtonDel_Click(object sender, RoutedEventArgs e)
         {
-            bool b_value = true;
+            bool b_value;
 
             ButtonDel.IsEnabled = false;
 
@@ -1262,14 +1245,16 @@ namespace voqui3
             ButtonOut.IsEnabled = true;
             ButtonSORT.IsEnabled = true;
 
+            if (!b_value) s_log += "\r\n ButtonDel error exit";
             F09_put_log_file();
-            if (!b_value) return;
 
         }
 
         // ボタン「設定」
         private void ButtonSettei_Click(object sender, RoutedEventArgs e)
         {
+            F13_put_jounal_file();
+
             var SWin1 = new SubWindow1();
             SWin1.Show();
 
@@ -1277,10 +1262,10 @@ namespace voqui3
 
         }
 
-        // ボタン「出力」
+        // ボタン「出力」エクセルファイルを作成
         private void ButtonOut_Click(object sender, RoutedEventArgs e)
         {
-            bool b_value = true;
+            bool b_value;
 
             ButtonOut.IsEnabled = false;
 
@@ -1292,16 +1277,19 @@ namespace voqui3
 
             if (b_value) b_value = F34_put_motochou();
 
-            if (b_value) b_value = F35_put_shisan();
+            if (b_value) b_value = F35_put_shisan();            
 
+            if (b_value)
+            {
+                var SWin2 = new SubWindow2
+                {
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                };
+                SWin2.Show();
+            }
+
+            if (!b_value) s_log += "\r\n ButtonOut error exit";
             F09_put_log_file();
-
-            var SWin2 = new SubWindow2();
-            SWin2.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            SWin2.Show();
-
-            // this.Close();
-
         }
 
         // ウインドウ　ロードイベント
@@ -1321,6 +1309,13 @@ namespace voqui3
 
             if (b_value) s_log += "\r\n" + " ..";
             F09_put_log_file();
+
+            if (i_nendo == 0)
+            {
+                var SWin1 = new SubWindow1();
+                SWin1.Show();
+                this.Close();
+            }
 
         }
 
@@ -1352,6 +1347,7 @@ namespace voqui3
 
             b_value = F12_sort_jounal_data();
 
+            if (!b_value) s_log += "\r\n ButtonSORT error exit";
             F09_put_log_file();
 
         }
@@ -1370,9 +1366,14 @@ namespace voqui3
 
             if (b_value) b_value = F13_put_jounal_file();
 
+            if (!b_value)
+            {
+                s_log += "\r\n ButtonEnd_Click error";
+            }
             F09_put_log_file();
 
             this.Close();
+
         }
 
         // ボタン「Exls」エクセルファイルを開く
@@ -1380,7 +1381,7 @@ namespace voqui3
         {
             if (File.Exists(s_pfile_output))
             {
-                System.Diagnostics.Process p = System.Diagnostics.Process.Start(s_pfile_output);
+                _ = System.Diagnostics.Process.Start(s_pfile_output);
             }
         }
 
@@ -1391,6 +1392,10 @@ namespace voqui3
 
             b_value = F06_karikata_sel();
 
+            if (!b_value)
+            {
+                s_log += "\r\n CBox_karierror";
+            }
             F09_put_log_file();
         }
 
@@ -1401,6 +1406,10 @@ namespace voqui3
 
             b_value = F07_kashikata_sel();
 
+            if (!b_value)
+            {
+                s_log += "\r\n CBox_kashi error";
+            }
             F09_put_log_file();
         }
     }
@@ -1481,5 +1490,5 @@ namespace voqui3
     // ----------------------------------------------------------------------- voqui3
     // ----------------------------------------------------------------------- 2017/8/4 start
     // ----------------------------------------------------------------------- 2017/8/28 change
-    // ----------------------------------------------------------------------- 2020/2/12 change 3.3
+    // ----------------------------------------------------------------------- 2020/2/16 change 3.3
 }

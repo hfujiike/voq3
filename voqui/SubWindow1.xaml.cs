@@ -21,30 +21,29 @@ namespace voqui3
     /// </summary>
     public partial class SubWindow1 : Window
     {
-        // 実行dirの読込
-        static string s_EPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        static string s_EDir = System.IO.Path.GetDirectoryName(s_EPath);
-        
-        static string s_pfile_param1 = s_EDir + "\\VOQ3P1.txt";   // 設定ファイル(年度,ライセンスキー,最終連番)
-        static string s_pfile_log    = s_EDir + "\\VOQ3L1.txt";   // ログファイル
-        static string s_pfile_mainp  = s_EDir + "\\VOQ3AA.exe";   // メインプログラム
+        // 実行dirの読込        
+        public static string s_EPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        public static string s_EDir = System.IO.Path.GetDirectoryName(s_EPath);
 
-        Encoding EncJIS = Encoding.GetEncoding("Shift-JIS");
+        public static string s_pfile_param1 = s_EDir + "\\VOQ3P1.txt";   // 設定ファイル(年度,ライセンスキー,最終連番)
+        public static string s_pfile_log    = s_EDir + "\\VOQ3L1.txt";   // ログファイル
+        public static string s_pfile_mainp  = s_EDir + "\\VOQ3AA.exe";   // メインプログラム
+
+        readonly Encoding EncJIS = Encoding.GetEncoding("Shift-JIS");
 
         // プリグラムのヴァージョン
         static System.Diagnostics.FileVersionInfo oFVI =
             System.Diagnostics.FileVersionInfo.GetVersionInfo(
             System.Reflection.Assembly.GetExecutingAssembly().Location);
-        static string s_pv = oFVI.FileVersion;
+        static readonly string s_pv = oFVI.FileVersion;
 
-        static int i_nendo = 0;
-        static string s_nendonew = "N";
-        static int i_endjno = 1000;
-        static string s_hyoud1 = "";
-        static string s_hyoud2 = "";
+        public int i_nendo = 0;
+        public int i_endjno = 1000;
+        public string s_hyoud1 = "";
+        public string s_hyoud2 = "";
 
-        static string s_log = "";
-        static string s_check = "";
+        public string s_log = "";
+        public string s_check = "";
 
         // ------------------------------------------------------------------------------------
 
@@ -55,20 +54,19 @@ namespace voqui3
 
         // ------------------------------------------------------------------------------------
 
+        //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽ Error
         private void BoxError(string m1)
         {
-            //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽ Error
-
             string w_mes = m1 + "\r\n修整しやり直しください。";
             MessageBox.Show(w_mes,
                 "voqui3 Error",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
-        private void BoxCheck(string m1)
-        {
-            //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽ Check
 
+        //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽ Check
+        private void BoxCheck(string m1)
+        {    
             string w_mes = m1 + "\r\n問題があればやり直しください。";
             MessageBox.Show(w_mes,
                 "voqui3 Check",
@@ -76,13 +74,33 @@ namespace voqui3
                 MessageBoxImage.Warning);
         }
 
+        //簡略化したﾒｯｾｰｼﾞﾎﾞｯｸｽ OK CANCEL
+        private bool BoxDoch(string mes)
+        {
+            string w_mes;
+            bool b_OK = true;
+
+            w_mes = mes + "\r\n";
+            w_mes += "この確認に問題なければ「OK」。\r\n";
+            w_mes += "以外の場合「ｷｬﾝｾﾙ」しまず。";
+
+            MessageBoxResult DR = MessageBox.Show(w_mes,
+                "voqui3 Question",
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Warning);
+            if (DR == MessageBoxResult.Cancel)
+            {
+                b_OK = false;
+            }
+            return b_OK;
+        }
+
         // ----------------------------------------------------------------------------------------------
 
-        public bool f01_get_param1_file()
+        // ﾊﾟﾗﾒｰﾀ1の読込
+        public bool F01_get_param1_file()
         {
-            // ﾊﾟﾗﾒｰﾀ1の読込
-
-            string s_rec = "";
+            string s_rec;
 
             try
             {
@@ -142,24 +160,12 @@ namespace voqui3
 
         }
 
-
-        public bool f02_put_param1_file()
-        {
-            // ﾊﾟﾗﾒｰﾀのファイル保存
-
-            string s_rec = "";
+        // ﾊﾟﾗﾒｰﾀのファイル保存
+        public bool F02_put_param1_file()
+        {            
             string s_job = "";
-
             try
             {
-                s_job = "f02 01 年度チェック ";
-                i_nendo = int.Parse(TbNendo.Text);
-                if (i_nendo < 2010 && i_nendo > 2040)
-                {
-                    BoxError(s_job + "\r\n  範囲エラー");
-                    return false;
-                }
-
                 s_job = "f02 03 表題 ";
                 // 表題格納
                 s_hyoud1 = tbHyou1.Text;
@@ -170,18 +176,11 @@ namespace voqui3
                 s_log += "\r\n f02 01 s put_param1_file ";
                 using (StreamWriter SwParam = new StreamWriter(s_pfile_param1, false, EncJIS))
                 {
+                    string s_rec = "";
+
                     // 年度格納
-                    if (i_nendo > 2010)
-                    {
-                        s_rec = "NENDO=" + i_nendo.ToString();
-                        SwParam.WriteLine(s_rec);
-                    }
-                    if (s_nendonew == "Y")
-                    {
-                        s_rec = "NENDONEW=" + s_nendonew;
-                        SwParam.WriteLine(s_rec);
-                        BoxCheck("年頭での初期化の設定もしています。よろしいですか？");
-                    }
+                    s_rec = "NENDO=" + i_nendo.ToString();
+                    SwParam.WriteLine(s_rec);
 
                     // 表題格納
                     s_rec = "HYUD1=" + s_hyoud1;
@@ -190,11 +189,8 @@ namespace voqui3
                     SwParam.WriteLine(s_rec);
 
                     // 最終処理項目番号の格納
-                    if (i_endjno > 1000)
-                    {
-                        s_rec = "ENDJNO=" + i_endjno.ToString();
-                        SwParam.WriteLine(s_rec);
-                    }
+                    s_rec = "ENDJNO=" + i_endjno.ToString();
+                    SwParam.WriteLine(s_rec);
                     SwParam.Close();
                 }
                 string s_dt = DateTime.Now.ToString();
@@ -212,11 +208,9 @@ namespace voqui3
             }
         }
 
-
-        public bool f09_put_log_file()
+        // ログのファイルアウト
+        public bool F09_put_log_file()
         {
-            // ログのファイルアウト
-
             try
             {
                 using (StreamWriter SwParam = new StreamWriter(s_pfile_log, true, EncJIS))
@@ -236,55 +230,80 @@ namespace voqui3
 
         // -------------------------------------------------------------------------------------------------
 
-
+        // 設定の登録
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
         {
-            // 設定の登録
-            bool b_value = true;
+            bool b_value =true;
+            bool b_r = int.TryParse(TbNendo.Text, out i_nendo);
+            if (!b_r)
+            {
+                BoxError("年度チェック\r\n  数値エラー");
+                return;
+            }            
+            if (i_nendo < 2010 || i_nendo > 2040)
+            {
+                BoxError("年度チェック\r\n  範囲エラー");
+                return;
+            }
 
-            b_value = f02_put_param1_file();
-            
-            if (!b_value) return;
+            if (CBoxNew.IsChecked == true)
+            {
+                if (BoxDoch("年頭での初期化の設定をします。よろしいですか？"))
+                {                    
+                    s_log += "\r\n ButtonSet_Click 年度新規 ";
 
-            f09_put_log_file();
+                    i_endjno = 1000;
+                    s_hyoud2 = i_nendo.ToString() + "(1/1-12/31)";
+                    tbHyou2.Text = s_hyoud2;
+
+                    b_value = F02_put_param1_file();
+                }
+                else
+                {
+                    s_log += "\r\n ButtonSet_Click 年度新規をキャンセル ";
+                }
+            } else
+            {
+                s_log += "\r\n ButtonSet_Click 年度新規 ";
+                b_value = F02_put_param1_file();
+            }
+            if (!b_value)
+            {
+                s_log += "\r\n ButtonSet_Click error ";
+            }
+            F09_put_log_file();
         }
 
-
+        // ウィンドロード
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // ウィンドロード
-            bool b_value = true;
+            bool b_value;
 
-            b_value = f01_get_param1_file();
-            f09_put_log_file();
+            b_value = F01_get_param1_file();
+
+            F09_put_log_file();
+
             if (!b_value) return;
 
-            f09_put_log_file();
+            if (i_nendo == 0)
+            {
+                CBoxNew.IsChecked = true;
+            }
+
         }
 
+        // Closed
         private void Window_Closed(object sender, EventArgs e)
         {
-
             //
         }
 
-        private void CBoxNew_Checked(object sender, RoutedEventArgs e)
-        {
-            // 年頭初期化
-            s_nendonew = "Y";            
-        }
 
-        private void CBoxNew_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // 年頭初期化
-            s_nendonew = "N";
-        }
 
+        // 「戻る」ボタン
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            // 「戻る」ボタン
-
-            System.Diagnostics.Process p = System.Diagnostics.Process.Start(s_pfile_mainp);
+            System.Diagnostics.Process.Start(s_pfile_mainp);
 
             this.Close();
         }
